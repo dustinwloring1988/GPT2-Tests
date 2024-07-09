@@ -1,0 +1,40 @@
+Name: GPT2-EDU-16-16-1024
+
+class GPTConfig:
+    block_size: int = 1024 # max sequence length
+    vocab_size: int = 50257 # number of tokens: 50,000 BPE merges + 256 bytes tokens + 1 <|endoftext|> token
+    n_layer: int = 16 # number of layers
+    n_head: int = 16 # number of heads
+    n_embd: int = 1024 # embedding dimension
+    
+    
+max_lr = 2e-4
+min_lr = max_lr * 0.1
+warmup_steps = 512
+max_steps = 6000 # 190,730 steps is ~1 epoch, if data is 100B tokens and batch size 0.5M tokens
+
+
+total_batch_size = 524288 # 2**19, ~0.5M, in number of tokens
+B = 4 # micro batch size
+T = 1024 # sequence length
+
+trainied using 2 4060ti and took 
+
+{
+start time: 2024-06-23_09:01:24
+end time:   2024-06-24_13:08:32
+}
+    
+    
+******* The following was taken from the terminal output upon startiong the training
+
+
+total desired batch size: 524288
+=> calculated gradient accumulation steps: 64
+found 1001 shards for split train
+found 1 shards for split val
+num decayed parameter tensors: 66, with 253,886,464 parameters
+num non-decayed parameter tensors: 130, with 215,040 parameters
+using fused AdamW: True
+validation loss: 11.0832
+HellaSwag accuracy: 2512/10042=0.2501
